@@ -1,0 +1,38 @@
+/*===============================================*/
+.item-content{
+    margin-left: 40px;
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 700 !important;
+    font-size: smaller;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.navbar-nav{
+text-align: end;
+}
+
+.logo{
+    cursor: pointer;
+}
+
+.item-content{
+    display: inline-flex;
+}
+
+h3{
+    font-family: 'Inter Tight', sans-serif !important;
+}
+
+.extra{
+    font-weight: 600 !important;
+}
+
+.little{
+    font-weight: 400;
+    font-size: 22px !important;
+}
+
+.item-content:hover{
+    border-bottom: 1px solid white;
+}
