@@ -1,0 +1,81 @@
+/*===============================================*/
+
+
+.item-content{
+    margin-left: 40px;
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 700 !important;
+    font-size: smaller;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.navbar-nav{
+text-align: end;
+}
+
+.logo{
+    cursor: pointer;
+}
+
+.item-content{
+    display: inline-flex;
+}
+
+h3{
+    font-family: 'Inter Tight', sans-serif !important;
+}
+
+.extra{
+    font-weight: 600 !important;
+}
+
+.little{
+    font-weight: 400;
+    font-size: 22px !important;
+}
+
+.item-content:hover{
+    border-bottom: 1px solid white;
+}
+
+/* ======== */
+.custom-popover {
+    --bs-popover-header-bg: black;
+    --bs-popover-header-color: white;
+}
+
+#coachBryl{
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    display: none;
+    max-width: 30vw;
+}
+#coachBryl:hover{
+    transform: scale(0.96);
+}
+
+.navbar{
+    --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !important;  
+}
+
+/* =============================FOR APP CSS================================== */
+.appHeader{
+    z-index: -1 !important;
+}
+
+#loadScreen {
+    position: fixed;
+    align-items: center;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+.appContainer{
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+}
