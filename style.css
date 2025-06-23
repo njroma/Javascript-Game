@@ -62,7 +62,7 @@ h3{
 
 /* =============================FOR APP CSS================================== */
 .appHeader{
-    z-index: -1 !important;
+    z-index: -1;
 }
 
 #loadScreen {
@@ -78,4 +78,32 @@ h3{
     background-color: black;
     width: 100vw;
     height: 100vh;
+}
+
+.overlay {
+    z-index: -2;
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(136, 136, 136, 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(136, 136, 136, 0.2) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  mask-image: radial-gradient(ellipse at center, transparent 20%, black 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 20%, black 70%);
+}
+
+
+.gameContainer{
+    background-color: #E4E4E4;
+    width: 75vw;
+    height: 60vh;
+    transition: background 5s ease;
+}
+
+.gameContainer:hover {
+  background: linear-gradient(to bottom right, rgba(196, 196, 202, 0.2), rgba(196, 196, 202, 0.4)), #E4E4E4;
+}
+
+.heroContainer{
+    display: none;
 }
