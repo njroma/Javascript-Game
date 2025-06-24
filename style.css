@@ -1,4 +1,5 @@
 /*===============================================*/
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 
 .item-content{
@@ -37,12 +38,6 @@ h3{
 
 .item-content:hover{
     border-bottom: 1px solid white;
-}
-
-/* ======== */
-.custom-popover {
-    --bs-popover-header-bg: black;
-    --bs-popover-header-color: white;
 }
 
 #coachBryl{
@@ -94,16 +89,78 @@ h3{
 
 
 .gameContainer{
-    background-color: #E4E4E4;
     width: 75vw;
     height: 60vh;
     transition: background 5s ease;
-}
-
-.gameContainer:hover {
-  background: linear-gradient(to bottom right, rgba(196, 196, 202, 0.2), rgba(196, 196, 202, 0.4)), #E4E4E4;
+     border-radius: 35px;
+background: #E4E4E4;
+box-shadow:  -5px 5px 10px #bdbdbd,
+             5px -5px 10px #ffffff;
 }
 
 .heroContainer{
     display: none;
+}
+
+.myAudio{
+    display: none;
+}
+
+
+.gameContainerPlay .gameContainerInfo{
+height: 60vh;
+}
+.gameContainerPlay{
+    border-right: solid 1px gray;
+}
+
+.gameContainerDivision{
+    width: 75vw;
+    height: 60vh;
+}
+
+.Game{
+    height: 50vh;
+     border-radius: 35px;
+background: #E4E4E4;
+box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.gameCubes {
+  width: 5vw;
+  height: 9vh;
+  color: #090909;
+  padding: 0.7em 1.7em;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+
+
+.gameCubes.flipped{
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+p{
+    margin: 0;
+}
+
+.dModes{
+    height: 15vh;
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 700 !important;
+    color:#090909;
+}
+
+.custom-tooltip {
+  --bs-tooltip-bg: var(--bd-violet-bg);
+  --bs-tooltip-color: var(--bs-white);
 }
