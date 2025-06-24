@@ -40,6 +40,12 @@ h3{
     border-bottom: 1px solid white;
 }
 
+/* ======== */
+.custom-popover {
+    --bs-popover-header-bg: black;
+    --bs-popover-header-color: white;
+}
+
 #coachBryl{
     right: 0;
     bottom: 0;
@@ -157,7 +163,6 @@ p{
     font-size: 2rem;
     font-family: 'Inter Tight', sans-serif;
     font-weight: 700 !important;
-    color:#090909;
 }
 
 .custom-tooltip {

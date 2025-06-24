@@ -6,23 +6,24 @@
   const video = document.querySelector("#loadScreen");  
   const gameContainer = document.querySelector(".gameContainer");
 
+    
+
+  video.addEventListener('ended', function () {
+    document.querySelector("#introId").style.display = "none";
+    ingameBGMusic.volume = 0.1; 
+    ingameBGMusic.play();
+    gamestart.volume = 0.1; 
+    gamestart.play();
+
     document.querySelector(".appHeader").style.setProperty("z-index", "1", "important");
     document.querySelector(".heroContainer").style.display = "inline";
-
-  // video.addEventListener('ended', function () {
-  //   document.querySelector("#introId").style.display = "none";
-  //   ingameBGMusic.volume = 0.1; 
-  //   ingameBGMusic.play();
-  //   gamestart.volume = 0.1; 
-  //   gamestart.play();
-
     
-  //   gameContainer.setAttribute("data-aos", "fade-up");
-  //   gameContainer.setAttribute("data-aos-duration", "600");
-  //   gameContainer.classList.remove("aos-animate"); // reset
-  //   void gameContainer.offsetWidth; // trigger reflow
-  //   gameContainer.classList.add("aos-animate");
-  // });
+    gameContainer.setAttribute("data-aos", "fade-up");
+    gameContainer.setAttribute("data-aos-duration", "600");
+    gameContainer.classList.remove("aos-animate"); // reset
+    void gameContainer.offsetWidth; // trigger reflow
+    gameContainer.classList.add("aos-animate");
+  });
 
   document.querySelectorAll(".gameCubes").forEach(cube => {
   cube.addEventListener('click', function () {
