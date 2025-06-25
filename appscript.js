@@ -1,23 +1,33 @@
  
   const ingameBGMusic = document.querySelector("#Gameboy");
   const gamestart = document.querySelector("#GameStart");
+  const gameOver = document.querySelector("#GameOver");
   const safeSound = document.querySelector("#SafeSound");
   const bugSound = document.querySelector("#BugSound");
   const video = document.querySelector("#loadScreen");  
   const gameContainer = document.querySelector(".gameContainer");
+  const toastTrigger = document.getElementById('liveToastBtn')
+  const toastLiveExample = document.getElementById('liveToast')
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+ 
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-    
-
+  
   video.addEventListener('ended', function () {
     document.querySelector("#introId").style.display = "none";
+    
+    toastBootstrap.show()
     ingameBGMusic.volume = 0.1; 
     ingameBGMusic.play();
     gamestart.volume = 0.1; 
     gamestart.play();
 
-    document.querySelector(".appHeader").style.setProperty("z-index", "1", "important");
+     document.querySelector(".appHeader").style.setProperty("z-index", "1", "important");
     document.querySelector(".heroContainer").style.display = "inline";
-    
+
+   
+ 
     gameContainer.setAttribute("data-aos", "fade-up");
     gameContainer.setAttribute("data-aos-duration", "600");
     gameContainer.classList.remove("aos-animate"); // reset
@@ -25,15 +35,6 @@
     gameContainer.classList.add("aos-animate");
   });
 
-  document.querySelectorAll(".gameCubes").forEach(cube => {
-  cube.addEventListener('click', function () {
-    if (this.classList.contains('clicked')) return; // already clicked
-
-    this.classList.add('flipped', 'clicked');
-    
-     // flip and mark as clicked
-  });
-});
 
 function safeSoundPlay (){
   safeSound.play();
@@ -73,30 +74,77 @@ const gameCubes = document.querySelectorAll(".gameCubes");
 gameCubes.forEach((cube, index) => {
   cube.addEventListener("click", function () {
     const p = cube.querySelector("p");
-    
+    if (this.classList.contains('clicked') || !this.classList.contains('started')) return;
     // Prevent multiple clicks from changing the result
-    if (p.textContent !== "❓") return;
-
-    // Check if this cube has a bug
-    if (bugData[index].hasBug) {
-      p.textContent = "🐞";
+    if (p.textContent === " ") {
+      if (bugData[index].hasBug) {
+      p.textContent = "💣";
       bugSoundPlay();
-    } else {
-      p.textContent = "✅";
-      safeSoundPlay();
-    }
+      loseLife();
+      } else {
+        p.textContent = "🐞";
+        safeSoundPlay();
+      }
+    };
+    this.classList.add('flipped', 'clicked');
   });
 });
-// const bugData = assignbugs(); // Get random bug assignments
-// const cubeBacks = document.querySelectorAll(".gameCubes-back > p");
 
-// cubeBacks.forEach((pTag, index) => {
-//   if (bugData[index].hasBug) {
-//     pTag.textContent = "🐞"; // Set bug emoji
-//     pTag.parentElement.style.backgroundColor = "black";
-//     pTag.parentElement.style.border = "black";
-//   } else {
-//     pTag.textContent = "✅"; // Set safe emoji
-    
-//   }
-// });
+function GameOver (){
+gameCubes.forEach((cube) => {
+cube.classList.add('clicked');
+})
+}
+
+
+const startBtn = document.getElementById("startBtnId");
+
+startBtn.addEventListener("click", () => {
+  gamestart.play();
+  gameCubes.forEach(cube => {
+    cube.classList.add("started");
+  });
+  startBtn.disabled = true; 
+});
+
+const levels = document.querySelectorAll(".modeBtn");
+levels.forEach((level)=> {
+  level.addEventListener("click", ()=>{
+    bugSound.play();
+  })
+  
+})
+
+const lives = document.querySelectorAll('.lives');
+ var livesCounter = 3;
+// Function to update the lives display
+function updateLivesDisplay() {
+  lives.forEach((life, index) => {
+    // If the life index is >= current livesCounter, mark it as lost
+    if (index >= livesCounter) {
+      life.style.fill = "black"; // dead life
+    } else {
+      life.style.fill = "red"; // still alive (or any default color)
+    }
+  });
+}
+
+function loseLife() {
+  if (livesCounter > 1) {
+    livesCounter--;
+    updateLivesDisplay();
+  }else{
+    livesCounter--;
+    updateLivesDisplay();
+    gameOver.play();
+    toastBootstrap.show()
+    GameOver();
+  }
+}
+
+
+const musicBG = document.querySelector('.musicBG');
+
+musicBG.addEventListener('change', ()=> {
+  ingameBGMusic.muted = !musicBG.checked;
+})
