@@ -224,7 +224,6 @@ p{
 
 
 /*Sound Switch*/
-/* From Uiverse.io by catraco */ 
 /*------ Settings ------*/
 .container {
   --color: #000000;
@@ -250,7 +249,7 @@ p{
   animation: keyframes-fill .5s;
 }
 
-/* ------ On check event ------ */
+
 .container input:checked ~ .mute {
   display: none;
 }
@@ -259,7 +258,6 @@ p{
   display: block;
 }
 
-/* ------ Hide the default checkbox ------ */
 .container input {
   position: absolute;
   opacity: 0;
@@ -296,11 +294,6 @@ p{
 
 
 /*---------Trophy----------*/
-/* From Uiverse.io by Javierrocadev */ 
-
-
-
-
 .svg-icon {
   position: absolute;
   fill: #e94822;

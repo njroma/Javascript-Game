@@ -37,8 +37,8 @@
  
     gameContainer.setAttribute("data-aos", "fade-up");
     gameContainer.setAttribute("data-aos-duration", "600");
-    gameContainer.classList.remove("aos-animate"); // reset
-    void gameContainer.offsetWidth; // trigger reflow
+    gameContainer.classList.remove("aos-animate");
+    void gameContainer.offsetWidth; 
     gameContainer.classList.add("aos-animate");
   });
 
@@ -72,9 +72,9 @@ function assignbugs(totalBoxes = 30, bugCount = 10) {
   return boxes;
 }
 
-const bugData = assignbugs(); // Your function that returns 30 boxes with 10 bugs
+const bugData = assignbugs(); 
 
-// Select all cubes
+
 const gameCubes = document.querySelectorAll(".gameCubes");
 
 // Add click event to each cube
@@ -137,14 +137,14 @@ levels.forEach((level)=> {
 
 const lives = document.querySelectorAll('.lives');
  var livesCounter = 3;
-// Function to update the lives display
+
 function updateLivesDisplay() {
   lives.forEach((life, index) => {
-    // If the life index is >= current livesCounter, mark it as lost
+
     if (index >= livesCounter) {
-      life.style.fill = "black"; // dead life
+      life.style.fill = "black"; 
     } else {
-      life.style.fill = "red"; // still alive (or any default color)
+      life.style.fill = "red"; 
     }
   });
 }
@@ -182,7 +182,7 @@ musicBG.addEventListener('change', ()=> {
 
 
 resetBtn.addEventListener("click", () => {
-  // Reset all cubes
+
   gameCubes.forEach((cube) => {
     const p = cube.querySelector("p");
     p.textContent = " ";
@@ -192,21 +192,19 @@ resetBtn.addEventListener("click", () => {
     mdbtn.disabled = false;
   }))
 
-  // Reset lives
+
   livesCounter = 3;
   Requirements = 5;
   bugCounter = 0;
   updateLivesDisplay();
   Win.style.display = "none";
 
-  // Reset bugData (if you want new bug placements)
-  const newBugData = assignbugs();
-  bugData.splice(0, bugData.length, ...newBugData); // Replace existing array values
 
-  // Reset bug counter if needed
+  const newBugData = assignbugs();
+  bugData.splice(0, bugData.length, ...newBugData); 
+
   bugCounter = 0;
 
-  // Enable start button again
   startBtn.disabled = false;
   resetBtn.style.display = "none";
 });
