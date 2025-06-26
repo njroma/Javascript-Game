@@ -4,25 +4,32 @@
   const gameOver = document.querySelector("#GameOver");
   const safeSound = document.querySelector("#SafeSound");
   const bugSound = document.querySelector("#BugSound");
+  const victorySound = document.querySelector("#VictorySound");
   const video = document.querySelector("#loadScreen");  
   const gameContainer = document.querySelector(".gameContainer");
   const toastTrigger = document.getElementById('liveToastBtn')
   const toastLiveExample = document.getElementById('liveToast')
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
- 
+  var Requirements = 5; // Default
+  var bugCounter = 0;
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  const resetBtn = document.querySelector("#resetBtnId");
+  const musicBG = document.querySelector('.musicBG');
+  const Modebuttons = document.querySelectorAll(".modeBtn");
+  const Win = document.querySelector(".trophy");
+
 
   
   video.addEventListener('ended', function () {
     document.querySelector("#introId").style.display = "none";
-    
+    resetBtn.style.display = "none";
     toastBootstrap.show()
     ingameBGMusic.volume = 0.1; 
     ingameBGMusic.play();
     gamestart.volume = 0.1; 
     gamestart.play();
-
+    Win.style.display = "none";
      document.querySelector(".appHeader").style.setProperty("z-index", "1", "important");
     document.querySelector(".heroContainer").style.display = "inline";
 
@@ -84,9 +91,17 @@ gameCubes.forEach((cube, index) => {
       } else {
         p.textContent = "🐞";
         safeSoundPlay();
+        bugCounter++;
       }
     };
     this.classList.add('flipped', 'clicked');
+    
+    if(bugCounter >= Requirements){
+      victorySound.play();
+      Win.style.display = "flex"
+      GameOver();
+    }
+    console.log("Bug Counter = ", bugCounter)
   });
 });
 
@@ -100,11 +115,16 @@ cube.classList.add('clicked');
 const startBtn = document.getElementById("startBtnId");
 
 startBtn.addEventListener("click", () => {
+  startBtn.disabled = true; 
+  
+  resetBtn.style.display = "inline-block" ;
   gamestart.play();
   gameCubes.forEach(cube => {
     cube.classList.add("started");
   });
-  startBtn.disabled = true; 
+  Modebuttons.forEach(mdbtn =>{
+    mdbtn.disabled = true;
+  })
 });
 
 const levels = document.querySelectorAll(".modeBtn");
@@ -142,9 +162,69 @@ function loseLife() {
   }
 }
 
+function BugGoal() {
+  if (bugCounter < 4) {
+    bugCounter++;
+  }else{
+    livesCounter++;
 
-const musicBG = document.querySelector('.musicBG');
+    GameOver();
+  }
+}
+
+
 
 musicBG.addEventListener('change', ()=> {
   ingameBGMusic.muted = !musicBG.checked;
 })
+
+
+
+
+resetBtn.addEventListener("click", () => {
+  // Reset all cubes
+  gameCubes.forEach((cube) => {
+    const p = cube.querySelector("p");
+    p.textContent = " ";
+    cube.classList.remove("flipped", "clicked", "started");
+  });
+  Modebuttons.forEach((mdbtn =>{
+    mdbtn.disabled = false;
+  }))
+
+  // Reset lives
+  livesCounter = 3;
+  Requirements = 5;
+  bugCounter = 0;
+  updateLivesDisplay();
+  Win.style.display = "none";
+
+  // Reset bugData (if you want new bug placements)
+  const newBugData = assignbugs();
+  bugData.splice(0, bugData.length, ...newBugData); // Replace existing array values
+
+  // Reset bug counter if needed
+  bugCounter = 0;
+
+  // Enable start button again
+  startBtn.disabled = false;
+  resetBtn.style.display = "none";
+});
+
+
+
+
+Modebuttons.forEach(button => {
+  button.addEventListener("click", function () {
+    if (this.disabled) return;
+
+    Modebuttons.forEach(btn => btn.disabled = false);
+    this.disabled = true;
+
+    Requirements = parseInt(this.dataset.requirements);
+
+    console.log("Requirements set to:", Requirements);
+  });
+});
+
+

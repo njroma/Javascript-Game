@@ -177,6 +177,13 @@ p{
     font-weight: 600 !important;
 }
 
+.footerBtn{
+    width: 7.5vw;
+    font-family: 'Inter Tight', sans-serif !important;
+    font-size: 0.75vw;
+    font-weight: 600 !important;
+}
+
 .infodetail{
     font-family: 'Inter Tight', sans-serif;
     color: black;
@@ -198,16 +205,23 @@ p{
 }
 
 .extraBtn{
-    bottom: 5%;
+    bottom: 6%;
     margin-left: 1%;
     position: absolute;
 }
 
 .startBtn{
-    bottom: 5%;
+    bottom: 3%;
     right: 5%;
     position: absolute;
 }
+
+.resetBtn{
+    bottom: 3%;
+    right: 25%;
+    position: absolute;
+}
+
 
 /*Sound Switch*/
 /* From Uiverse.io by catraco */ 
@@ -276,4 +290,73 @@ p{
   fill: red;
 }
 
-musicBG
+
+
+
+
+
+/*---------Trophy----------*/
+/* From Uiverse.io by Javierrocadev */ 
+
+
+
+
+.svg-icon {
+  position: absolute;
+  fill: #e94822;
+  z-index: 1;
+  width: 25px;
+  height: 25;
+}
+
+.star-eight {
+  background: #efd510;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  text-align: center;
+  animation: rot 3s  infinite;
+}
+
+.star-eight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background: #efd510;
+  transform: rotate(135deg);
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(340deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-5deg);
+  }
+
+  75% {
+    transform: rotate(5deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
