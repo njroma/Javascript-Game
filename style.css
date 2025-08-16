@@ -329,8 +329,8 @@ h3 {
 }
 
 @media (max-width: 768px) {
-  .col-10.Game {
-    width: 95%;
+  .col-md-10.Game {
+    width: 90%;
     max-width: none;
     margin: 0.5rem auto;
   }
@@ -347,10 +347,6 @@ h3 {
 
 /* Additional iPhone 12 Pro Game container adjustments */
 @media screen and (max-width: 390px) {
-  .col-10.Game {
-    width: calc(100% - 1rem);
-    margin: 0.5rem auto;
-  }
 
   .Game .row.justify-content-evenly {
     gap: 0.35rem;
@@ -369,6 +365,13 @@ h3 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  .col-sm-11.Game {
+    width: 95%;
+    max-width: none;
+    margin: 0;
+    padding: 0 0.5rem;
   }
 }
 
