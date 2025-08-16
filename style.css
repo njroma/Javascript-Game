@@ -133,7 +133,7 @@ h3 {
 
 /* Responsive Accordion Styles */
 .accordion-sm {
-  margin-bottom: 100px; /* Space for controls */
+  margin-bottom: 0;
 }
 
 .accordion-sm .accordion-button {

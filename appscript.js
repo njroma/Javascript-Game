@@ -47,20 +47,7 @@ video.addEventListener('ended', function () {
 
 
 deployBtn.addEventListener("click", () => {
-  document.querySelector(".heroContainer").style.display = "none";
-  document.querySelector(".appHeader").style.setProperty("z-index", "-1", "important");
-
-  intro.style.display = "flex";
-  video.style.display = "block";
-  video.currentTime = 0;
-  video.play();
-
-  video.removeEventListener('ended', videoEndHandler);
-
-  function videoEndHandler() {
-    window.location.href = "https://www.base-404.com/";
-  }
-  video.addEventListener('ended', videoEndHandler);
+window.location.href = "https://www.base-404.com/";
 });
 
 function safeSoundPlay() {
