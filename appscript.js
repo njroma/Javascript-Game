@@ -23,17 +23,81 @@ const Win = document.querySelector(".trophy");
 
 
 
-  // Ensure video plays when coming from index.html
+  // Check if device is mobile
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // Function to handle video playback
+  function playVideo() {
+    video.currentTime = 0;
+    // Set playsinline for iOS
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    
+    const playPromise = video.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        // Video started playing successfully
+        intro.style.display = "flex";
+        video.style.display = "block";
+      }).catch(error => {
+        console.log('Video autoplay prevented:', error);
+        
+        // Show a play button or overlay for mobile
+        const playOverlay = document.createElement('div');
+        playOverlay.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.8);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+        `;
+        
+        const playButton = document.createElement('button');
+        playButton.textContent = 'Tap to Start';
+        playButton.style.cssText = `
+          padding: 15px 30px;
+          font-size: 18px;
+          background: #333;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        `;
+        
+        playOverlay.appendChild(playButton);
+        document.body.appendChild(playOverlay);
+        
+        playButton.addEventListener('click', () => {
+          video.play().then(() => {
+            playOverlay.remove();
+            intro.style.display = "flex";
+            video.style.display = "block";
+          }).catch(console.error);
+        }, { once: true });
+      });
+    }
+  }
+
+  // Handle initial load
   window.addEventListener('load', function() {
-    video.play().catch(error => {
-      console.error('Video autoplay failed:', error);
-      // Optionally, you can show a message to the user or handle the error gracefully
-    });
     if (sessionStorage.getItem('playIntroVideo') === 'true') {
-      intro.style.display = "flex";
-      video.style.display = "block";
-      video.currentTime = 0;
-      video.play();
+      if (isMobile) {
+        // On mobile, wait for user interaction
+        intro.style.display = "flex";
+        video.style.display = "block";
+        playVideo();
+      } else {
+        // On desktop, try autoplay
+        intro.style.display = "flex";
+        video.style.display = "block";
+        playVideo();
+      }
       sessionStorage.removeItem('playIntroVideo');
     }
   });
