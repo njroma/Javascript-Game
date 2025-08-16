@@ -25,7 +25,17 @@ const Win = document.querySelector(".trophy");
 
   // Ensure video plays when coming from index.html
   window.addEventListener('load', function() {
-    video.play();
+    video.play().catch(error => {
+      console.error('Video autoplay failed:', error);
+      // Optionally, you can show a message to the user or handle the error gracefully
+    });
+    if (sessionStorage.getItem('playIntroVideo') === 'true') {
+      intro.style.display = "flex";
+      video.style.display = "block";
+      video.currentTime = 0;
+      video.play();
+      sessionStorage.removeItem('playIntroVideo');
+    }
   });
 
   video.addEventListener('ended', function () {
