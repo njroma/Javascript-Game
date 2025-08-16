@@ -459,7 +459,8 @@ p {
   font-family: "Inter Tight", sans-serif;
   color: black;
   font-size: clamp(12px, 0.8vw, 16px);
-  font-weight: 700 !important;  
+  font-weight: 700 !important; 
+  text-align: center;
   
 }
 
