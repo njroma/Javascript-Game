@@ -104,7 +104,7 @@ h3 {
 }
 
 .gameContainer {
-  width: 70%;
+  width: 100%;
   max-width: 1200px;
   height: auto;
   min-height: 500px;
@@ -185,8 +185,6 @@ h3 {
   }
 
   .gameContainerPlay {
-    border-right: none;
-    border-bottom: solid 1px gray;
     padding: 0.5rem;
     min-height: auto;
   }
@@ -287,9 +285,6 @@ h3 {
   }
 }
 
-.gameContainerPlay {
-  border-right: solid 1px gray;
-}
 
 .gameContainerDivision {
   width: 100%;
@@ -299,11 +294,6 @@ h3 {
 }
 
 @media (max-width: 992px) {
-  .gameContainerPlay {
-    border-right: none;
-    border-bottom: solid 1px gray;
-  }
-
   .col-7,
   .col-5 {
     width: 100%;
@@ -469,7 +459,8 @@ p {
   font-family: "Inter Tight", sans-serif;
   color: black;
   font-size: clamp(12px, 0.8vw, 16px);
-  font-weight: 700 !important;
+  font-weight: 700 !important;  
+  
 }
 
 .fade_rule {

@@ -9,10 +9,10 @@ const video = document.querySelector("#loadScreen");
 const gameContainer = document.querySelector(".gameContainer");
 const deployBtn = document.querySelector(".deployBtn");
 const intro = document.querySelector("#introId");
-const toastTrigger = document.getElementById('liveToastBtn')
-const toastLiveExample = document.getElementById('liveToast')
-const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const toastTrigger = document.getElementById('liveToastBtn');
+const toastLiveExample = document.getElementById('liveToast');
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 var Requirements = 5; // Default
 var bugCounter = 0;
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
@@ -106,7 +106,6 @@ const Win = document.querySelector(".trophy");
     intro.style.display = "none";
     resetBtn.style.display = "none";
     deployBtn.style.display = "none";
-    toastBootstrap.show()
     ingameBGMusic.volume = 0.1; 
     ingameBGMusic.play();
     gamestart.volume = 0.1; 
@@ -189,6 +188,7 @@ gameCubes.forEach((cube, index) => {
       deployBtn.classList.remove("aos-animate");
       void deployBtn.offsetWidth;
       deployBtn.classList.add("aos-animate")
+      toastBootstrap.show()
       GameOver();
     }
     console.log("Bug Counter = ", bugCounter)
@@ -247,7 +247,6 @@ function loseLife() {
     livesCounter--;
     updateLivesDisplay();
     gameOver.play();
-    toastBootstrap.show()
     GameOver();
   }
 }
