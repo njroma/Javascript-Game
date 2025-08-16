@@ -735,3 +735,16 @@ p {
     transform: scale(1) rotate(0deg);
   }
 }
+
+/* Disable AOS animations for specific elements on mobile */
+@media screen and (max-width: 390px) {
+    .deployBtn[data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+        animation: none !important;
+        -webkit-animation: none !important;
+        -webkit-transform: none !important;
+        pointer-events: auto !important;
+    }
+}
