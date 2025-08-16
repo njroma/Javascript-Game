@@ -20,7 +20,8 @@ interBtnCounter.forEach((interactBtn)=>{
             document.querySelector(".subGameStart").innerHTML = "Click The Button Below To Start! 🎮";
             document.querySelector(".sub2GameStart").innerHTML = "All you need is a love for finding bugs💖.";
             document.querySelector(".playNow").addEventListener("click", () => {
-                window.location = "/app.html";
+                sessionStorage.setItem('playIntroVideo', 'true');
+                window.location.href = "app.html";
             });
         }
     });

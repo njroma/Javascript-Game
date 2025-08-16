@@ -23,20 +23,35 @@ const Win = document.querySelector(".trophy");
 
 
 
-video.addEventListener('ended', function () {
-  intro.style.display = "none";
-  resetBtn.style.display = "none";
-  deployBtn.style.display = "none";
-  toastBootstrap.show()
-  ingameBGMusic.volume = 0.1;
-  ingameBGMusic.play();
-  gamestart.volume = 0.1;
-  gamestart.play();
-  Win.style.display = "none";
-  document.querySelector(".appHeader").style.setProperty("z-index", "1", "important");
-  document.querySelector(".heroContainer").style.display = "inline";
+  // Ensure video plays when coming from index.html
+  window.addEventListener('load', function() {
+    if (sessionStorage.getItem('playIntroVideo') === 'true') {
+      intro.style.display = "flex";
+      setTimeout(() => {
+        video.play().catch(err => {
+          console.log("Video playback failed, trying again...");
+          document.body.addEventListener('click', function playVideoOnce() {
+            video.play();
+            document.body.removeEventListener('click', playVideoOnce);
+          }, { once: true });
+        });
+      }, 100);
+      sessionStorage.removeItem('playIntroVideo');
+    }
+  });
 
-
+  video.addEventListener('ended', function () {
+    intro.style.display = "none";
+    resetBtn.style.display = "none";
+    deployBtn.style.display = "none";
+    toastBootstrap.show()
+    ingameBGMusic.volume = 0.1; 
+    ingameBGMusic.play();
+    gamestart.volume = 0.1; 
+    gamestart.play();
+    Win.style.display = "none";
+    document.querySelector(".appHeader").style.setProperty("z-index", "1", "important");
+    document.querySelector(".heroContainer").style.display = "inline";
 
   gameContainer.setAttribute("data-aos", "fade-up");
   gameContainer.setAttribute("data-aos-duration", "600");
