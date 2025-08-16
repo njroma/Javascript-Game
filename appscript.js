@@ -1,59 +1,79 @@
- 
-  const ingameBGMusic = document.querySelector("#Gameboy");
-  const gamestart = document.querySelector("#GameStart");
-  const gameOver = document.querySelector("#GameOver");
-  const safeSound = document.querySelector("#SafeSound");
-  const bugSound = document.querySelector("#BugSound");
-  const victorySound = document.querySelector("#VictorySound");
-  const video = document.querySelector("#loadScreen");  
-  const gameContainer = document.querySelector(".gameContainer");
-  const toastTrigger = document.getElementById('liveToastBtn')
-  const toastLiveExample = document.getElementById('liveToast')
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  var Requirements = 5; // Default
-  var bugCounter = 0;
-  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-  const resetBtn = document.querySelector("#resetBtnId");
-  const musicBG = document.querySelector('.musicBG');
-  const Modebuttons = document.querySelectorAll(".modeBtn");
-  const Win = document.querySelector(".trophy");
+
+const ingameBGMusic = document.querySelector("#Gameboy");
+const gamestart = document.querySelector("#GameStart");
+const gameOver = document.querySelector("#GameOver");
+const safeSound = document.querySelector("#SafeSound");
+const bugSound = document.querySelector("#BugSound");
+const victorySound = document.querySelector("#VictorySound");
+const video = document.querySelector("#loadScreen");
+const gameContainer = document.querySelector(".gameContainer");
+const deployBtn = document.querySelector(".deployBtn");
+const intro = document.querySelector("#introId");
+const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+var Requirements = 5; // Default
+var bugCounter = 0;
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+const resetBtn = document.querySelector("#resetBtnId");
+const musicBG = document.querySelector('.musicBG');
+const Modebuttons = document.querySelectorAll(".modeBtn");
+const Win = document.querySelector(".trophy");
 
 
-  
-  video.addEventListener('ended', function () {
-    document.querySelector("#introId").style.display = "none";
-    resetBtn.style.display = "none";
-    toastBootstrap.show()
-    ingameBGMusic.volume = 0.1; 
-    ingameBGMusic.play();
-    gamestart.volume = 0.1; 
-    gamestart.play();
-    Win.style.display = "none";
-     document.querySelector(".appHeader").style.setProperty("z-index", "1", "important");
-    document.querySelector(".heroContainer").style.display = "inline";
 
-   
- 
-    gameContainer.setAttribute("data-aos", "fade-up");
-    gameContainer.setAttribute("data-aos-duration", "600");
-    gameContainer.classList.remove("aos-animate");
-    void gameContainer.offsetWidth; 
-    gameContainer.classList.add("aos-animate");
-  });
+video.addEventListener('ended', function () {
+  intro.style.display = "none";
+  resetBtn.style.display = "none";
+  deployBtn.style.display = "none";
+  toastBootstrap.show()
+  ingameBGMusic.volume = 0.1;
+  ingameBGMusic.play();
+  gamestart.volume = 0.1;
+  gamestart.play();
+  Win.style.display = "none";
+  document.querySelector(".appHeader").style.setProperty("z-index", "1", "important");
+  document.querySelector(".heroContainer").style.display = "inline";
 
 
-function safeSoundPlay (){
+
+  gameContainer.setAttribute("data-aos", "fade-up");
+  gameContainer.setAttribute("data-aos-duration", "600");
+  gameContainer.classList.remove("aos-animate");
+  void gameContainer.offsetWidth;
+  gameContainer.classList.add("aos-animate");;
+});
+
+
+deployBtn.addEventListener("click", () => {
+  document.querySelector(".heroContainer").style.display = "none";
+  document.querySelector(".appHeader").style.setProperty("z-index", "-1", "important");
+
+  intro.style.display = "flex";
+  video.style.display = "block";
+  video.currentTime = 0;
+  video.play();
+
+  video.removeEventListener('ended', videoEndHandler);
+
+  function videoEndHandler() {
+    window.location.href = "https://www.base-404.com/";
+  }
+  video.addEventListener('ended', videoEndHandler);
+});
+
+function safeSoundPlay() {
   safeSound.play();
 };
 
-function bugSoundPlay (){
+function bugSoundPlay() {
   bugSound.play();
 };
 
 
-  
- 
+
+
 function assignbugs(totalBoxes = 30, bugCount = 10) {
   const boxes = Array.from({ length: totalBoxes }, (_, i) => ({
     id: i,
@@ -72,7 +92,7 @@ function assignbugs(totalBoxes = 30, bugCount = 10) {
   return boxes;
 }
 
-const bugData = assignbugs(); 
+const bugData = assignbugs();
 
 
 const gameCubes = document.querySelectorAll(".gameCubes");
@@ -85,9 +105,9 @@ gameCubes.forEach((cube, index) => {
     // Prevent multiple clicks from changing the result
     if (p.textContent === " ") {
       if (bugData[index].hasBug) {
-      p.textContent = "💣";
-      bugSoundPlay();
-      loseLife();
+        p.textContent = "💣";
+        bugSoundPlay();
+        loseLife();
       } else {
         p.textContent = "🐞";
         safeSoundPlay();
@@ -95,56 +115,62 @@ gameCubes.forEach((cube, index) => {
       }
     };
     this.classList.add('flipped', 'clicked');
-    
-    if(bugCounter >= Requirements){
+
+    if (bugCounter >= Requirements) {
       victorySound.play();
       Win.style.display = "flex"
+      deployBtn.style.display = "block";
+      deployBtn.setAttribute("data-aos", "fade-up");
+      deployBtn.setAttribute("data-aos-duration", "600");
+      deployBtn.classList.remove("aos-animate");
+      void deployBtn.offsetWidth;
+      deployBtn.classList.add("aos-animate")
       GameOver();
     }
     console.log("Bug Counter = ", bugCounter)
   });
 });
 
-function GameOver (){
-gameCubes.forEach((cube) => {
-cube.classList.add('clicked');
-})
+function GameOver() {
+  gameCubes.forEach((cube) => {
+    cube.classList.add('clicked');
+  })
 }
 
 
 const startBtn = document.getElementById("startBtnId");
 
 startBtn.addEventListener("click", () => {
-  startBtn.disabled = true; 
-  
-  resetBtn.style.display = "inline-block" ;
+  startBtn.disabled = true;
+
+  resetBtn.style.display = "inline-block";
   gamestart.play();
   gameCubes.forEach(cube => {
     cube.classList.add("started");
   });
-  Modebuttons.forEach(mdbtn =>{
+  Modebuttons.forEach(mdbtn => {
     mdbtn.disabled = true;
   })
 });
 
 const levels = document.querySelectorAll(".modeBtn");
-levels.forEach((level)=> {
-  level.addEventListener("click", ()=>{
+levels.forEach((level) => {
+  level.addEventListener("click", () => {
     bugSound.play();
   })
-  
+
 })
 
 const lives = document.querySelectorAll('.lives');
- var livesCounter = 3;
+var livesCounter = 3;
 
 function updateLivesDisplay() {
   lives.forEach((life, index) => {
 
     if (index >= livesCounter) {
-      life.style.fill = "black"; 
+      life.style.fill = "black";
     } else {
-      life.style.fill = "red"; 
+      life.style.fill = "red";
     }
   });
 }
@@ -153,7 +179,7 @@ function loseLife() {
   if (livesCounter > 1) {
     livesCounter--;
     updateLivesDisplay();
-  }else{
+  } else {
     livesCounter--;
     updateLivesDisplay();
     gameOver.play();
@@ -165,7 +191,7 @@ function loseLife() {
 function BugGoal() {
   if (bugCounter < 4) {
     bugCounter++;
-  }else{
+  } else {
     livesCounter++;
 
     GameOver();
@@ -174,7 +200,7 @@ function BugGoal() {
 
 
 
-musicBG.addEventListener('change', ()=> {
+musicBG.addEventListener('change', () => {
   ingameBGMusic.muted = !musicBG.checked;
 })
 
@@ -188,7 +214,7 @@ resetBtn.addEventListener("click", () => {
     p.textContent = " ";
     cube.classList.remove("flipped", "clicked", "started");
   });
-  Modebuttons.forEach((mdbtn =>{
+  Modebuttons.forEach((mdbtn => {
     mdbtn.disabled = false;
   }))
 
@@ -201,7 +227,7 @@ resetBtn.addEventListener("click", () => {
 
 
   const newBugData = assignbugs();
-  bugData.splice(0, bugData.length, ...newBugData); 
+  bugData.splice(0, bugData.length, ...newBugData);
 
   bugCounter = 0;
 
