@@ -25,19 +25,7 @@ const Win = document.querySelector(".trophy");
 
   // Ensure video plays when coming from index.html
   window.addEventListener('load', function() {
-    if (sessionStorage.getItem('playIntroVideo') === 'true') {
-      intro.style.display = "flex";
-      setTimeout(() => {
-        video.play().catch(err => {
-          console.log("Video playback failed, trying again...");
-          document.body.addEventListener('click', function playVideoOnce() {
-            video.play();
-            document.body.removeEventListener('click', playVideoOnce);
-          }, { once: true });
-        });
-      }, 100);
-      sessionStorage.removeItem('playIntroVideo');
-    }
+    video.play();
   });
 
   video.addEventListener('ended', function () {
