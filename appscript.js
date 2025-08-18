@@ -276,6 +276,7 @@ resetBtn.addEventListener("click", () => {
     const p = cube.querySelector("p");
     p.textContent = " ";
     cube.classList.remove("flipped", "clicked", "started");
+    deployBtn.style.display = "none";
   });
   Modebuttons.forEach((mdbtn => {
     mdbtn.disabled = false;
