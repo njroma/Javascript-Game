@@ -1,4 +1,3 @@
-
 const ingameBGMusic = document.querySelector("#Gameboy");
 const gamestart = document.querySelector("#GameStart");
 const gameOver = document.querySelector("#GameOver");
@@ -9,42 +8,43 @@ const video = document.querySelector("#loadScreen");
 const gameContainer = document.querySelector(".gameContainer");
 const deployBtn = document.querySelector(".deployBtn");
 const intro = document.querySelector("#introId");
-const toastTrigger = document.getElementById('liveToastBtn');
-const toastLiveExample = document.getElementById('liveToast');
+const toastTrigger = document.getElementById("liveToastBtn");
+const toastLiveExample = document.getElementById("liveToast");
 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipTriggerList = document.querySelectorAll(
+  '[data-bs-toggle="tooltip"]'
+);
 var Requirements = 5; // Default
 var bugCounter = 0;
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+const tooltipList = [...tooltipTriggerList].map(
+  (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+);
 const resetBtn = document.querySelector("#resetBtnId");
-const musicBG = document.querySelector('.musicBG');
+const musicBG = document.querySelector(".musicBG");
 const Modebuttons = document.querySelectorAll(".modeBtn");
 const Win = document.querySelector(".trophy");
 
+// Check if device is mobile
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+function playVideo() {
+  video.currentTime = 0;
 
-  // Check if device is mobile
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
 
-  // Function to handle video playback
-  function playVideo() {
-    video.currentTime = 0;
-    // Set playsinline for iOS
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-    
-    const playPromise = video.play();
-    
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        // Video started playing successfully
+  const playPromise = video.play();
+
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
         intro.style.display = "flex";
         video.style.display = "block";
-      }).catch(error => {
-        console.log('Video autoplay prevented:', error);
-        
-        // Show a play button or overlay for mobile
-        const playOverlay = document.createElement('div');
+      })
+      .catch((error) => {
+        console.log("Video autoplay prevented:", error);
+
+        const playOverlay = document.createElement("div");
         playOverlay.style.cssText = `
           position: fixed;
           top: 0;
@@ -57,9 +57,9 @@ const Win = document.querySelector(".trophy");
           align-items: center;
           z-index: 9999;
         `;
-        
-        const playButton = document.createElement('button');
-        playButton.textContent = 'Tap to Start';
+
+        const playButton = document.createElement("button");
+        playButton.textContent = "Tap to Start";
         playButton.style.cssText = `
           padding: 15px 30px;
           font-size: 18px;
@@ -69,78 +69,80 @@ const Win = document.querySelector(".trophy");
           border-radius: 5px;
           cursor: pointer;
         `;
-        
+
         playOverlay.appendChild(playButton);
         document.body.appendChild(playOverlay);
-        
-        playButton.addEventListener('click', () => {
-          video.play().then(() => {
-            playOverlay.remove();
-            intro.style.display = "flex";
-            video.style.display = "block";
-          }).catch(console.error);
-        }, { once: true });
+
+        playButton.addEventListener(
+          "click",
+          () => {
+            video
+              .play()
+              .then(() => {
+                playOverlay.remove();
+                intro.style.display = "flex";
+                video.style.display = "block";
+              })
+              .catch(console.error);
+          },
+          { once: true }
+        );
       });
-    }
   }
+}
 
-  // Handle initial load
-  window.addEventListener('load', function() {
-    if (sessionStorage.getItem('playIntroVideo') === 'true') {
-      if (isMobile) {
-        // On mobile, wait for user interaction
-        intro.style.display = "flex";
-        video.style.display = "block";
-        playVideo();
-      } else {
-        // On desktop, try autoplay
-        intro.style.display = "flex";
-        video.style.display = "block";
-        playVideo();
-      }
-      sessionStorage.removeItem('playIntroVideo');
+window.addEventListener("load", function () {
+  if (sessionStorage.getItem("playIntroVideo") === "true") {
+    if (isMobile) {
+      intro.style.display = "flex";
+      video.style.display = "block";
+      playVideo();
+    } else {
+      intro.style.display = "flex";
+      video.style.display = "block";
+      playVideo();
     }
-  });
+    sessionStorage.removeItem("playIntroVideo");
+  }
+});
 
-  video.addEventListener('ended', function () {
-    intro.style.display = "none";
-    resetBtn.style.display = "none";
-    deployBtn.style.display = "none";
-    ingameBGMusic.volume = 0.1; 
-    ingameBGMusic.play();
-    gamestart.volume = 0.1; 
-    gamestart.play();
-    Win.style.display = "none";
-    document.querySelector(".appHeader").style.setProperty("z-index", "1", "important");
-    document.querySelector(".heroContainer").style.display = "inline";
+video.addEventListener("ended", function () {
+  intro.style.display = "none";
+  resetBtn.style.display = "none";
+  deployBtn.style.display = "none";
+  ingameBGMusic.volume = 0.1;
+  ingameBGMusic.play();
+  gamestart.volume = 0.1;
+  gamestart.play();
+  Win.style.display = "none";
+  document
+    .querySelector(".appHeader")
+    .style.setProperty("z-index", "1", "important");
+  document.querySelector(".heroContainer").style.display = "inline";
 
   gameContainer.setAttribute("data-aos", "fade-up");
   gameContainer.setAttribute("data-aos-duration", "600");
   gameContainer.classList.remove("aos-animate");
   void gameContainer.offsetWidth;
-  gameContainer.classList.add("aos-animate");;
+  gameContainer.classList.add("aos-animate");
 });
 
-
 deployBtn.addEventListener("click", () => {
-window.location.href = "https://www.base-404.com/";
+  window.location.href = "https://www.base-404.com/";
 });
 
 function safeSoundPlay() {
   safeSound.play();
-};
+}
 
 function bugSoundPlay() {
   bugSound.play();
-};
-
-
-
+}
 
 function assignbugs(totalBoxes = 30, bugCount = 10) {
   const boxes = Array.from({ length: totalBoxes }, (_, i) => ({
     id: i,
-    hasBug: false
+    hasBug: false,
   }));
 
   let bugsPlaced = 0;
@@ -157,14 +159,17 @@ function assignbugs(totalBoxes = 30, bugCount = 10) {
 
 const bugData = assignbugs();
 
-
 const gameCubes = document.querySelectorAll(".gameCubes");
 
 // Add click event to each cube
 gameCubes.forEach((cube, index) => {
   cube.addEventListener("click", function () {
     const p = cube.querySelector("p");
-    if (this.classList.contains('clicked') || !this.classList.contains('started')) return;
+    if (
+      this.classList.contains("clicked") ||
+      !this.classList.contains("started")
+    )
+      return;
     // Prevent multiple clicks from changing the result
     if (p.textContent === " ") {
       if (bugData[index].hasBug) {
@@ -176,31 +181,30 @@ gameCubes.forEach((cube, index) => {
         safeSoundPlay();
         bugCounter++;
       }
-    };
-    this.classList.add('flipped', 'clicked');
+    }
+    this.classList.add("flipped", "clicked");
 
     if (bugCounter >= Requirements) {
       victorySound.play();
-      Win.style.display = "flex"
+      Win.style.display = "flex";
       deployBtn.style.display = "block";
       deployBtn.setAttribute("data-aos", "fade-up");
       deployBtn.setAttribute("data-aos-duration", "600");
       deployBtn.classList.remove("aos-animate");
       void deployBtn.offsetWidth;
-      deployBtn.classList.add("aos-animate")
-      toastBootstrap.show()
+      deployBtn.classList.add("aos-animate");
+      toastBootstrap.show();
       GameOver();
     }
-    console.log("Bug Counter = ", bugCounter)
+    console.log("Bug Counter = ", bugCounter);
   });
 });
 
 function GameOver() {
   gameCubes.forEach((cube) => {
-    cube.classList.add('clicked');
-  })
+    cube.classList.add("clicked");
+  });
 }
-
 
 const startBtn = document.getElementById("startBtnId");
 
@@ -209,28 +213,26 @@ startBtn.addEventListener("click", () => {
 
   resetBtn.style.display = "inline-block";
   gamestart.play();
-  gameCubes.forEach(cube => {
+  gameCubes.forEach((cube) => {
     cube.classList.add("started");
   });
-  Modebuttons.forEach(mdbtn => {
+  Modebuttons.forEach((mdbtn) => {
     mdbtn.disabled = true;
-  })
+  });
 });
 
 const levels = document.querySelectorAll(".modeBtn");
 levels.forEach((level) => {
   level.addEventListener("click", () => {
     bugSound.play();
-  })
+  });
+});
 
-})
-
-const lives = document.querySelectorAll('.lives');
+const lives = document.querySelectorAll(".lives");
 var livesCounter = 3;
 
 function updateLivesDisplay() {
   lives.forEach((life, index) => {
-
     if (index >= livesCounter) {
       life.style.fill = "black";
     } else {
@@ -261,34 +263,26 @@ function BugGoal() {
   }
 }
 
-
-
-musicBG.addEventListener('change', () => {
+musicBG.addEventListener("change", () => {
   ingameBGMusic.muted = !musicBG.checked;
-})
-
-
-
+});
 
 resetBtn.addEventListener("click", () => {
-
   gameCubes.forEach((cube) => {
     const p = cube.querySelector("p");
     p.textContent = " ";
     cube.classList.remove("flipped", "clicked", "started");
     deployBtn.style.display = "none";
   });
-  Modebuttons.forEach((mdbtn => {
+  Modebuttons.forEach((mdbtn) => {
     mdbtn.disabled = false;
-  }))
-
+  });
 
   livesCounter = 3;
   Requirements = 5;
   bugCounter = 0;
   updateLivesDisplay();
   Win.style.display = "none";
-
 
   const newBugData = assignbugs();
   bugData.splice(0, bugData.length, ...newBugData);
@@ -299,14 +293,11 @@ resetBtn.addEventListener("click", () => {
   resetBtn.style.display = "none";
 });
 
-
-
-
-Modebuttons.forEach(button => {
+Modebuttons.forEach((button) => {
   button.addEventListener("click", function () {
     if (this.disabled) return;
 
-    Modebuttons.forEach(btn => btn.disabled = false);
+    Modebuttons.forEach((btn) => (btn.disabled = false));
     this.disabled = true;
 
     Requirements = parseInt(this.dataset.requirements);
@@ -314,5 +305,3 @@ Modebuttons.forEach(button => {
     console.log("Requirements set to:", Requirements);
   });
 });
-
-
